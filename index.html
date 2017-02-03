@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<meta charset=utf-8 />
+<link href="https://fonts.googleapis.com/css?family=Pattaya" rel="stylesheet">
+<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+<title>JS Bin</title>
+<script src="jquery-1.7.2.min.js"></script>
+<style>
+HTML,
+BODY {
+  
+
+  margin:0;
+  padding:0;
+	
+}
+BODY {
+ 
+  background: #f0f0f0;
+  font-size: 1.5em;
+  height: 100%;
+  min-width:400px;
+}
+
+#page-preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    z-index: 100500;
+}
+
+
+
+</style>
+<style>
+#nav-container{
+    position: absolute;
+    top: 0;
+    left: 25px;
+
+	z-index:210;
+	width:100px;
+	height:100px;
+}
+
+/*toggle-icon*/
+.toggle-icon {
+    display: block;
+    position: relative;
+    width: 100%;
+	height:100%;
+    margin: 0 auto
+    -webkit-transition: margin 600ms;
+    -moz-transition: margin 600ms;
+    transition: margin 600ms;
+    cursor: pointer;
+}
+
+.toggle-icon .bar {
+    display: block;
+    width: 100%;
+    height: 0.2em;
+    margin: 0.9em;
+    border-right: 5em solid #123456;
+   
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition-property: -webkit-transform, margin, border-right-color, box-shadow;
+    -moz-transition-property: -moz-transform, margin, border-right-color, box-shadow;
+    transition-property: transform, margin, border-right-color, box-shadow;
+    -webkit-transition-duration: 600ms;
+    -moz-transition-duration: 600ms;
+    transition-duration: 600ms;
+}
+    .toggle-icon .bar:nth-of-type(1) {
+        -webkit-transition: opacity 300ms;
+        -moz-transition: opacity 300ms;
+        transition: opacity 300ms;
+    }
+    .toggle-icon .bar:nth-of-type(2) {
+        -webkit-transform: rotate(-180deg);
+        -moz-transform: rotate(-180deg);
+        -ms-transform: rotate(-180deg);
+        -o-transform: rotate(-180deg);
+        transform: rotate(-180deg);
+    }
+
+/*pushed*/
+
+
+    .pushed .bar:nth-of-type(1) {
+        opacity: 0;
+    }
+
+    .pushed .bar:nth-of-type(2) {
+        margin-left: 1.4em;
+        -webkit-transform: rotate(-137deg) translateY(-1.5em);
+        -moz-transform: rotate(-137deg) translateY(-1.5em);
+        -ms-transform: rotate(-137deg) translateY(-1.5em);
+        -o-transform: rotate(-137deg) translateY(-1.5em);
+        transform: rotate(-137deg) translateY(-1.5em);
+    }
+
+    .pushed .bar:nth-of-type(3) {
+        margin-left: 0.5em;
+        -webkit-transform: rotate(-42deg);
+        -moz-transform: rotate(-42deg);
+        -ms-transform: rotate(-42deg);
+        -o-transform: rotate(-42deg);
+        transform: rotate(-42deg);
+    }
+
+
+.pushed .toggle-icon:hover .bar:nth-of-type(2) {
+    border-right-color: yellow;
+    box-shadow: 0.4em 0 0.9em 0.1em rgba(32,240,144,1);
+}
+.pushed .toggle-icon:hover .bar:nth-of-type(3) {
+    border-right-color: yellow;
+    box-shadow: 0.4em 0 0.9em 0.1em rgba(32,240,144,1);
+}
+
+#menu
+{
+position:absolute;
+top:-805px;
+left:0;
+width:200px;
+height:600px;
+
+background-color:rgba(103,185,144,1);
+transition:all 1s;
+border-bottom:10px solid yellow;
+overflow:hidden;
+z-index:200;
+}
+
+
+#menu ul
+{
+height:450px;
+margin-top:150px;
+margin-right:-20px;
+list-style:none;
+overflow-y:;
+overflow-x:hidden;
+}
+#menu ul li
+{
+margin-right:40px;
+}
+#menu ul li a
+{
+text-decoration:none;
+}
+#menu ul li a p
+{
+
+color:#fff;
+ text-shadow: 1px 1px 3px black, 0 0 3px black; /* Параметры тени */
+ transition:all 1s;
+}
+#menu ul li:hover a p
+{
+
+color:#EC5F5F;
+ text-shadow: 1px 1px 2px  0px blue, 0 0 3px 0px black; /* Параметры тени */
+
+}
+
+
+
+#header
+{
+position:relative;
+width:100%;
+height:100px;
+background-color:rgba(103,185,144,1);
+
+}
+#header h1
+{
+font-size:2em;
+text-align:center;
+margin-top:0;
+padding-top:15px;
+font-family: 'Pattaya', sans-serif;
+font-weight:100;
+letter-spacing:2px;
+color:#F2FAE7;
+text-shadow: 1px 1px 2px white, 0 0 2px black;
+}
+#footer
+{
+position:relative;
+height:100px;
+width:100%;
+background-color:rgba(103,185,144,1);
+
+
+}
+ 
+#content
+{
+position:relative;
+margin-top:50px;
+width:90%;
+margin-left:5%;
+min-height:400px;
+height:auto;
+
+margin-bottom:50px;
+outline:1px solid #d0d0d0;
+background-color:rgba(230,230,230,0.5);
+}
+#booksBlock,#AboutMeBlock, #SkillsBlock, #ConectionBlock
+{
+position:relative;
+width:100%;
+height:auto;
+overflow:auto;
+min-height:200px;
+
+
+}
+
+
+
+
+.bookinformation
+{
+position:relative;
+width:90%;
+margin-left:5%;
+margin-top:30px;
+margin-bottom:30px;
+border:1px solid #d0d0d0;
+overflow-x:hidden;
+min-height:300px;
+height:auto;
+}
+.picture
+{
+position:relative;
+width:150px;
+height:200px;
+margin-left:5%;
+margin-right:30px;
+margin-bottom:20px;
+margin-top:25px;
+outline:1px solid blue;
+float:left;
+background-size:cover;
+}
+.bookinformation .title
+{
+position:relative;
+font-size:2em;
+margin-bottom:20px;
+margin-top:10px;
+}
+.bookinformation .description
+{
+position:relative;
+font-size:1em;
+margin-top:0px;
+margin-left:5%;
+margin-right:5%;
+padding-bottom:30px;
+}
+
+.cleaner
+{
+width:100%;
+clear:both;
+height:0px;
+
+position:relative;
+}
+
+#booksBlock h3,#AboutMeBlock h3, #SkillsBlock h3, #ConectionBlock h3
+{
+text-align:center;
+font-size:2.5em;
+font-style:italic;
+font-weight:600;
+margin-top:30px;
+margin-left:5%;
+margin-right:5%;
+}
+#booksBlock p,#AboutMeBlock p, #SkillsBlock p, #ConectionBlock p
+{
+text-align:center;
+font-size:30px;
+margin-left:5%;
+margin-right:5%;
+font-weight:100;
+}
+
+#SkillsBlock ul,#ConectionBlock ul
+{
+list-style:none;
+
+}
+#ConectionBlock ul li a
+{text-decoration:none;}
+#ConectionBlock ul li a p
+{
+color:black;
+transition:all 0.25s;
+}
+#ConectionBlock ul li:hover a p
+{
+color:red;
+}
+#ConectionBlock ul li a p i
+{
+font-size:40px;
+
+margin-right:50px;
+}
+@media (max-width: 1200px)
+{
+#header h1
+{font-size:35px;}
+}
+
+@media (max-width: 900px)
+{
+
+#header h1
+{font-size:24px;
+width:200px;
+text-align:right;
+float:right;
+margin-right:15px;
+margin-top:0px;
+padding-top:0px;
+animation-name:example;
+
+}
+
+}
+</style>
+<style>
+#book1
+{background-image:url(images/book1.jpg);}
+#book2
+{background-image:url(images/book2.jpg);}
+#book3
+{background-image:url(images/book3.jpg);}
+#book4
+{background-image:url(images/book4.jpg);}
+#book5
+{background-image:url(images/book5.jpg);}
+#book6
+{background-image:url(images/book6.jpg);}
+#book7
+{background-image:url(images/book7.jpg);}
+</style>
+
+<style>
+
+#Bigcircle
+{color:red;
+position:relative;
+border:10px solid white;
+width:300px;
+height:300px;
+margin:0 auto;
+margin-top:calc(50vh - 150px);
+border-radius:50%;
+animation: rotation 4s infinite;
+}
+#Bigcircle p
+{position:relative;
+margin:0 auto;
+text-align:center;
+margin-top:45%;
+font-size:40px;
+color:white;
+animation: rotationBack 4s infinite;
+
+}
+#smallCircle
+{color:red;
+position:absolute;
+border:10px solid white;
+background-color:black;
+width:100px;
+height:100px;
+margin:0;
+padding:0;
+left:100px;
+top:-50px;
+border-radius:50%;
+
+}
+
+@keyframes example {
+    0%   {transform:rotate (0deg);background-color:red;}
+    25%  {transform:rotate (90deg);background-color:yellow;}
+    50%  {transform:rotate (180deg);background-color:green;}
+	75%  {transform:rotate (270deg);background-color:blue;}
+    100% {transform:rotate (360deg);background-color:red;}
+}
+@keyframes rotation { 
+0% {transform:rotate(0deg);} 
+100% {transform:rotate(360deg);}
+} 
+@keyframes rotationBack { 
+0% {transform:rotate(0deg);} 
+100% {transform:rotate(-360deg);}
+}
+</style>
+</head>
+<body>
+<div id="page-preloader">
+	
+			<div id="Bigcircle"><p>LOAD</p><div id="smallCircle"></div></div>
+	
+</div>
+
+<div id="header">
+<h1>Резюме для демонстрации навыков</h1>
+
+</div>
+
+<div id="menu">
+	<ul>
+		
+		<li id="aboutMe"><a href="#"><p>Про меня</p></a></li>
+		<li id="skills"><a href="#"><p>Мои навыки</p></a></li>
+			<li id="books"><a href="#"><p>Книги, которые читал</p></a></li>
+		<li id="connection"><a href="#"><p>Связь со мной</p></a></li>
+	
+		
+	</ul>
+</div>
+
+
+<div id="nav-container">
+	<div class="toggle-icon">
+		<span class="bar"></span>
+		<span class="bar"></span>
+		<span class="bar"></span>
+	</div><!-- /toggle-icon -->
+</div><!-- /nav-container -->
+ <div id="content">
+	<div id="booksBlock">
+		<h3>Книги, которые читал</h3>
+		
+		<div class="cleaner"></div>
+	</div>
+	<div id="AboutMeBlock">
+		<h3>Основная Информация</h3>
+	<p>Добрый день. Эта веб-страница - резюме фронтенд разработчика из Киева.Меня Зовут Дмитрий Жуков. 1995 года рождения(на данный момент 21 год). Студент 1-го курса магистратуры КНУ Шевченка, поэтому работу ищу либо удаленную, либо с гибким графиком(могу работать и по выходным).  Все способы связаться со мной - в подменю "связь со мной". Готов выполнить тестовое задание для демонстрации навыков. В первую очередь интересует верстка, в дальнейшем планирую уйти в  fullstack.<br>Уроень владения языком:<br>-Английский- на уровне чтения технической документации и минимальной коммуникации. 
+-Русский- свободный.
+-Украинский-свободно</p>
+	</div>
+	<div id="SkillsBlock">
+	<h3>Мои Навыки</h3>
+		<ul>
+			<li><p>Веб-верстка. CSS, HTML, javascript, Jquery-это основное с чем работаю</p></li>
+			<li><p>bootstrap, AJAX, LESS, Wordpress, PHP(С этими знаком,рабтал, но исспользую не часто)</p></li>
+			<li><p>Знаком с понятием "БЭМ методология", с таким как "адаптируемый сайт","резиновый"</p></li>
+			<li><p>Также работал, вне frontend, с C#, Javscript MSQL,создавал небольшие приложения на anroid</p></li>
+			<li><p>работа с ОС семейства windows,Unix(Debian, Ubuntu, Kali)</p></li>
+		
+		</ul>
+		
+		<div class="cleaner">
+		
+		
+	 
+		
+		
+		</div>
+	</div>
+	<div id="ConectionBlock">
+	<h3>	Связь со Мной</h3>
+		<ul>
+			<li><a href="https://vk.com/id20641069"><p><i class="fa fa-vk" aria-hidden="true"></i>https://vk.com/id20641069</p></a></li>
+			
+			<li><a href="skype:Dmitro_v_metro?chat"><p><i class="fa fa-skype" aria-hidden="true"></i>Dmitro_v_metro</p></a></li>
+			<li><a href="mailto:dmitro196@bigmir.net"><p><i class="fa fa-envelope" aria-hidden="true"></i>dmitro196@bigmir.net</p></a></li>
+			<li><a href="https://github.com/Dmitro196"><p><i class="fa fa-github" aria-hidden="true"></i>https://github.com/Dmitro196</p></a></li>
+			
+		</ul>
+		<div class="cleaner"></div>
+	</div>
+ </div>
+<div id="footer"></div>
+<!--#SkillsBlock, #ConectionBlock-->
+ <script>
+$(window).on('load', function () {
+    var $preloader = $('#page-preloader');
+  
+    $preloader.delay(6000).fadeOut('slow');
+});
+  </script>
+   <script>
+   var showmenu=false;
+   var startposition=$("#menu").outerHeight();
+ 
+   
+  $('#menu').css('top','-'+startposition+'px');
+
+   
+   
+   
+   
+   $(".toggle-icon").click(function() {
+  $('#nav-container').toggleClass("pushed");
+  
+  if(showmenu==false)
+  {showmenu=true;
+  $("#menu").css('top','0');
+  }
+  else
+  {showmenu=false;
+  $("#menu").css('top','-'+startposition+'px');}
+  
+  
+});
+
+var books={
+	 book1:{ 'name':'HTML и XHTML. Подробное руководство'
+			,'description':'Описание книги HTML и XHTML. Подробное руководство: "HTML и XHTML. Подробное руководство" - самая полная и современная книга по языкам HTML и XHTML, разъясняющая работу и взаимодействие каждого их элемента. Она удачно сочетает в себе лучшие качества понятного учебного пособия, адресованного начинающим, и всеобъемлющего справочника, который всегда под рукой даже у опытных веб-программистов. Этот труд, ставший классическим, содержит все от базового описания синтаксиса и семантики до практических советов, поможет вам найти свой неповторимый стиль и в совершенстве овладеть языком веб-дизайна.'
+			,'pictureid':'book1'}
+	
+	,book2:{ 'name':'Павловская Т.А. "C#. Программирование на языке высокого уровня"'
+			,'description':'Книга предназначена  для тех, кто еще только начинает осваивать C#, независимо от того, новичок ли это, или профессиональный программист, решивший освоить новый язык.'
+			,'pictureid':'book2'}
+	
+	,book3:{ 'name':'Приемы объектно-ориентированного проектирования. Паттерны проектирования'
+			,'description':'В предлагаемой книге описываются простые и изящные решения типичных задач, возникающих в объектно-ориентированном проектировании. Паттерны появились потому, что многие разработчики искали пути повышения гибкости и степени повторного использования своих программ. Найденные решения воплощены в краткой и легко применимой на практике форме. Авторы излагают принципы использования паттернов проектирования и приводят их каталог. Таким образом, книга одновременно решает две задачи. Во-первых, здесь демонстрируется роль паттернов в создании архитектуры сложных систем. Во-вторых, применяя содержащиеся в справочнике паттерны, проектировщик сможет с легкостью разрабатывать собственные приложения.'
+			,'pictureid':'book3'}
+	,book4:{ 'name':'Принципы, паттерны и методики гибкой разработки на языке C#'
+			,'description':'Какое отношение имеет книга, посвященная технике программирования на C#, к коллекции книг для эмбеддеров? Самое непосредственное.Паттерны проектирования - это понятие более высокого уровня, чем конкретный язык программирования. То, что в качестве иллюстраций выбран именно C#, лишь облегчает понимание материала, поскольку этот язык выразительнее, чем C++, и привычнее для большинства, чем, скажем, Smalltalk. Во всяком случае, читается книга ничуть не хуже, чем тот же "Рефакторинг" Фаулера, проиллюстрированный примерами на Java.'
+			,'pictureid':'book4'}
+	,book5:{ 'name':'Кнут Д.Э. Искусство программирования. Том 1. Основные алгоритмы'
+			,'description':' Первый том серии книг «Искусство программирования» начинается с описания основных понятий и методов программирования. Затем автор сосредоточивается на рассмотрении информационных структур - представлении информации внутри компьютера, структурных связях между элементами данных и способах эффективной работы с ними. Для методов имитации, символьных вычислений, числовых методов и методов разработки программного обеспечения даны примеры элементарных приложений. По сравнению с предыдущим изданием добавлены десятки простых, но в то же время очень важных алгоритмов. В соответствии с современными направлениями исследований был существенно переработан также раздел математического введения.'
+			,'pictureid':'book5'}
+	,book6:{ 'name':'Совершенный код. Мастер-класс'
+			,'description':'Более 10 лет первое издание этой книги считалось одним из лучших практических руководств по программированию. Сейчас эта книга полностью обновлена с учетом современных тенденций и технологий и дополнена сотнями новых примеров, иллюстрирующих искусство и науку программирования. Опираясь на академические исследования, с одной стороны, и практический опыт коммерческих разработок ПО - с другой, автор синтезировал из самых эффективных методик и наиболее эффективных принципов ясное прагматичное руководство. Каков бы ни был ваш профессиональный уровень, с какими бы средствами разработками вы ни работали, какова бы ни была сложность вашего проекта, в этой книге вы найдете нужную информацию, она заставит вас размышлять и поможет создать совершенный код.'
+			,'pictureid':'book6'}
+	,book7:{ 'name':'Дэвид Сойер Макфарланд - Большая книга CSS3'
+			,'description':'C помощью технологии CSS3 (каскадные таблицы стилей) можно создавать уникальные, современные оформления веб-сайтов. Но даже самый опытный веб-разработчик может не знать всех приемов применения CSS3. Прочитав в этой книге множество практических примеров, а также советов, вы перейдете на новый уровень создания сайтов с помощью HTML и CSS. Вы узнаете, как разрабатывать веб-страницы, которые одинаково быстро работают и одинаково выглядят, как на ПК, так и на смартфонах и планшетах'
+			,'pictureid':'book7'}
+	
+};
+
+
+function AddBook()
+{
+for(var key in books)
+{
+console.log(books[key]['name']);
+$('#booksBlock').append('<div class="bookinformation">			<div class="picture" id="'+books[key]['pictureid']+'">			</div>			<h3 class="title">'+books[key]['name']+'</h3>			<p class="description">'+books[key]['description']+'</p>		</div>');
+
+}
+}
+
+
+
+AddBook();
+
+
+</script>
+<!--#SkillsBlock, #ConectionBlock-->
+<script>
+var showbooks;
+var showAboutme;
+var showSkills;
+var showConnection;
+function HideAll()
+{
+$('#booksBlock').css('display','none');
+$('#AboutMeBlock').css('display','none');
+$('#SkillsBlock').css('display','none');
+$('#ConectionBlock').css('display','none');
+showbooks=false;
+showAboutme=false;
+showSkills=false;
+showConnection=false;
+}
+HideAll();
+$('#AboutMeBlock').css('display','block');
+showAboutme=true;
+document.getElementById('books').onclick = function() {
+   if(showbooks==false)
+   {
+   HideAll();
+   showbooks=true;
+   $('#booksBlock').css('display','block');
+   
+   }
+   else
+   {showbooks=false;
+   $('#booksBlock').css('display','none');}
+}
+document.getElementById('aboutMe').onclick = function() {
+ 
+ if(showAboutme==false)
+   {
+   HideAll();
+   showAboutme=true;
+   $('#AboutMeBlock').css('display','block');
+
+   }
+   else
+   {showAboutme=false;
+   $('#AboutMeBlock').css('display','none');}
+}
+
+
+document.getElementById('skills').onclick = function() {
+ 
+ if(showSkills==false)
+   {
+   HideAll();
+   showSkills=true;
+   $('#SkillsBlock').css('display','block');
+
+   }
+   else
+   {showSkills=false;
+   $('#SkillsBlock').css('display','none');}
+}
+
+document.getElementById('connection').onclick = function() {
+ 
+ if(showConnection==false)
+   {
+   HideAll();
+   showConnection=true;
+   $('#ConectionBlock').css('display','block');
+
+   }
+   else
+   {showConnection=false;
+   $('#ConectionBlock').css('display','none');}
+}
+</script>
+
+</body>
+</html>
